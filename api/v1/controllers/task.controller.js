@@ -85,6 +85,18 @@ module.exports.changeMulti = async (req, res) => {
                     message: "Cap nhat trang thai thanh cong"
                 })
                 break;
+            case "delete":
+                await Task.updateMany({
+                    _id: {$in: ids}
+                }, {
+                    deleted: true,
+                    deleteAt: new Date()
+                });
+                res.json({
+                    code: 200,
+                    message: "Cap nhat trang thai thanh cong"
+                })
+                break;
             default:
                 res.json({
                     code: 400,
@@ -135,8 +147,11 @@ module.exports.edit = async (req, res) => {
 module.exports.delete = async (req, res) => {
     try{
         const id = req.params.id;
-        await Task.deleteOne({
+        await Task.updateOne({
             _id: id
+        }, {
+            deleted: true,
+            deleteAt: new Date()
         });
         res.json({
             code: 400,
