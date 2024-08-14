@@ -115,3 +115,20 @@ module.exports.create = async (req, res) => {
         })
     }
 }
+module.exports.edit = async (req, res) => {
+    try{
+        const id = req.params.id;
+        await Task.updateOne({
+            _id: id
+        }, req.body);
+        res.json({
+            code: 400,
+            message: "Tao thanh cong",
+        });
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Khong ton tai"
+        })
+    }
+}
