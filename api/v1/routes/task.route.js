@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Task = require("../../../modles/task.model");
 const paginationHelper = require("../../../helpers/pagination")
+const searchHelper = require("../../../helpers/search")
 
 router.get("/", async (req, res) => {
     const find = {
@@ -9,6 +10,11 @@ router.get("/", async (req, res) => {
     }
     if(req.query.status) {
         find.status = req.query.status;
+    }
+    const objectSearch = searchHelper(req.query);
+    let keyword = "";
+    if(objectSearch.regex) {
+        find.title = objectSearch.regex;
     }
     //pagination
     const coutTask = await Task.countDocuments(find);
