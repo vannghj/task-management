@@ -132,3 +132,20 @@ module.exports.edit = async (req, res) => {
         })
     }
 }
+module.exports.delete = async (req, res) => {
+    try{
+        const id = req.params.id;
+        await Task.deleteOne({
+            _id: id
+        });
+        res.json({
+            code: 400,
+            message: "Tao thanh cong",
+        });
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Khong ton tai"
+        })
+    }
+}
