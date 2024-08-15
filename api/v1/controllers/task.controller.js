@@ -1,4 +1,4 @@
-const Task = require("../../../modles/task.model");
+const Task = require("../modles/task.model");
 const searchHelper = require("../../../helpers/search");
 const paginationHelper = require("../../../helpers/pagination");
 module.exports.index = async (req, res) => {

@@ -1,5 +1,5 @@
-const User = require("../../../modles/user.model");
-const ForgotPassword = require("../../../modles/forgot-password.model");
+const User = require("../modles/user.model");
+const ForgotPassword = require("../modles/forgot-password.model");
 const md5 = require("md5");
 const generateHelper = require("../../../helpers/generate");
 const sendMailHelper = require("../../../helpers/sendMail");
@@ -168,16 +168,11 @@ module.exports.resetPassword = async (req, res) => {
 }
 module.exports.detail = async (req, res) => {
     try{
-        const token = req.cookies.token;
-        const user = await User.findOne({
-            token: token,
-            deleted: false,
-        }).select("-password -token")
 
         res.json({
             code: 200,
             message: "Thanh cong",
-            info: user
+            info: req.user
         })
     } catch (error) {
         res.json({
