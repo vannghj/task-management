@@ -20,7 +20,8 @@ module.exports.register = async (req, res) => {
             const user = new User({
                 fullName: req.body.fullName,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                token: generateHelper.generateRandomString(30)
             })
             await user.save();
             const token = user.token;
@@ -93,7 +94,7 @@ module.exports.forgotPassword = async (req, res) => {
         const objectForgotPassword = {
             email: email,
             otp: otp,
-            expireAt: Date.now(),
+            expireAt: Date.now() +timeExpire*60*1000,
         }
         const forgotPassword = new ForgotPassword(objectForgotPassword);
         await forgotPassword.save();
