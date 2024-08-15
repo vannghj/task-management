@@ -138,7 +138,26 @@ module.exports.otpPassword = async (req, res) => {
             message: "xac thuc thanh cong",
             token: token
         })
-        
+
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Khong ton tai"
+        })
+    }
+}
+module.exports.resetPassword = async (req, res) => {
+    try{
+        const token = req.body.token;
+        const password = req.body.password;
+        await User.updateOne({
+            token: token,
+        }, {password: md5(password)})
+        res.json({
+            code: 200,
+            message: "Doi mat khau thanh cong",
+            token: token
+        })
     } catch (error) {
         res.json({
             code: 400,
