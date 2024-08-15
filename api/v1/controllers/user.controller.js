@@ -181,3 +181,20 @@ module.exports.detail = async (req, res) => {
         })
     }
 }
+module.exports.list = async (req, res) => {
+    try{
+        const users = await User.find({
+            deleted: false,
+        }).select("fullName email");
+        res.json({
+            code: 200,
+            message: "Thanh cong",
+            users : users
+        })
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Khong ton tai"
+        })
+    }
+}
